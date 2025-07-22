@@ -148,7 +148,7 @@ export default function VisitorDetails() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const getAllVisitor = async() => {
-    const response = await axios.get("https://api.worldtriplink.com/api/getAllVisitor")
+    const response = await axios.get("http://localhost:8085/api/getAllVisitor")
     setVisitor(response.data);
   }
  

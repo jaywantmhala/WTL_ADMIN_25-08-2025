@@ -49,7 +49,7 @@ const Page = () => {
     if (bookingId) {
       setLoading(true);
       setError(null);
-      fetch(`https://api.worldtriplink.com/booking/${bookingId}`)
+      fetch(`http://localhost:8085/booking/${bookingId}`)
         .then((res) => {
           if (!res.ok) throw new Error("Error fetching booking details");
           return res.json();
@@ -75,7 +75,7 @@ const Page = () => {
   useEffect(() => {
     const fetchVendors = async () => {
       try {
-        const response = await fetch("https://api.worldtriplink.com/vendors/allVendors");
+        const response = await fetch("http://localhost:8085/vendors/allVendors");
 
         // Check if the response is OK (status 200)
         if (!response.ok) {
@@ -102,7 +102,7 @@ const Page = () => {
     try {
       // Make the PUT request to assign the vendor
       const response = await axios.put(
-        `https://api.worldtriplink.com/${bookingId}/assignVendor/${vendorId}`
+        `http://localhost:8085/${bookingId}/assignVendor/${vendorId}`
       );
 
       // Handle the successful response (booking updated)
@@ -126,7 +126,7 @@ const Page = () => {
     try {
       // Make the PUT request to assign the cab
       const response = await axios.put(
-        `https://api.worldtriplink.com/${bookingId}/assignCabAdmin/${cabAdminId}`
+        `http://localhost:8085/${bookingId}/assignCabAdmin/${cabAdminId}`
       );
 
       // Handle the successful response (booking updated)
@@ -150,7 +150,7 @@ const Page = () => {
     try {
       // Make the PUT request to assign the driver
       const response = await axios.put(
-        `https://api.worldtriplink.com/${bookingId}/assignDriveAdmin/${driverAdminId}`
+        `http://localhost:8085/${bookingId}/assignDriveAdmin/${driverAdminId}`
       );
 
       // Handle the successful response (booking updated)
@@ -173,7 +173,7 @@ const Page = () => {
     
     try {
       const response = await axios.put(
-        `https://api.worldtriplink.com/${bookingId}/status`,
+        `http://localhost:8085/${bookingId}/status`,
         { status: newStatus } // Send the new status in the request body
       );
       setBooking(response.data); // Update the booking status in state
@@ -191,7 +191,7 @@ const Page = () => {
     if (isUpdatingStatus) return;
     if (window.confirm("Are you sure you want to mark the trip complete?")) {
       setIsUpdatingStatus(true);
-      fetch(`https://api.worldtriplink.com/complete-trip/${bookingId}`, {
+      fetch(`http://localhost:8085/complete-trip/${bookingId}`, {
         method: "POST",
       })
         .then((res) => {
@@ -209,7 +209,7 @@ const Page = () => {
 
   const getCabAdmin = async () => {
     try {
-      const response = await axios.get("https://api.worldtriplink.com/cabAdmin/all");
+      const response = await axios.get("http://localhost:8085/cabAdmin/all");
       setCabAdmin(response.data);
     } catch (error) {
       console.error("Error fetching cab admin data:", error);
@@ -224,7 +224,7 @@ const Page = () => {
 
   const getDriverAdmin = async () => {
     try {
-      const response = await axios.get("https://api.worldtriplink.com/driverAdmin/all");
+      const response = await axios.get("http://localhost:8085/driverAdmin/all");
       setDriverAdmin(response.data);
     } catch (error) {
       console.error("Error fetching driver admin data:", error);
@@ -240,7 +240,7 @@ const Page = () => {
     if (isUpdatingStatus) return;
     if (window.confirm("Are you sure you want to cancel the trip?")) {
       setIsUpdatingStatus(true);
-      fetch(`https://api.worldtriplink.com/cancel-trip/${bookingId}`, {
+      fetch(`http://localhost:8085/cancel-trip/${bookingId}`, {
         method: "POST",
       })
         .then((res) => {
@@ -411,7 +411,7 @@ const Page = () => {
       // Optionally, log the payload to debug
       console.log("Sending to backend:", payload);
 
-      const response = await axios.put(`https://api.worldtriplink.com/updateBooking/${bookingId}`, payload);
+      const response = await axios.put(`http://localhost:8085/updateBooking/${bookingId}`, payload);
       setBooking(response.data);
       setIsEditMode(false);
       alert("Booking updated successfully!");

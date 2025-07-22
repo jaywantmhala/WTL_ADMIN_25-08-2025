@@ -18,7 +18,7 @@ const Page = () => {
   useEffect(() => {
     const getAllVendors = async () => {
       try {
-        const response = await axios.get("https://api.worldtriplink.com/vendors/allVendors");
+        const response = await axios.get("http://localhost:8085/vendors/allVendors");
         setVendors(response.data);
       } catch (error) {
         console.error("Error fetching vendors:", error);
@@ -34,9 +34,9 @@ const Page = () => {
         try {
           let url = "";
           if (filter === "id") {
-            url = `https://api.worldtriplink.com/getPenalty/${selectedVendor}`; // Fetch by ID
+            url = `http://localhost:8085/getPenalty/${selectedVendor}`; // Fetch by ID
           } else if (filter === "companyName") {
-            url = `https://api.worldtriplink.com/getByName/${selectedVendor}`; // Fetch by company name
+            url = `http://localhost:8085/getByName/${selectedVendor}`; // Fetch by company name
           }
 
           const response = await axios.get(url);
@@ -84,7 +84,7 @@ const Page = () => {
   // Fetch all penalties for the modal
   const fetchAllPenalties = async () => {
     try {
-      const response = await axios.get("https://api.worldtriplink.com/getAllPenalties");
+      const response = await axios.get("http://localhost:8085/getAllPenalties");
       setAllPenalties(response.data);
       setShowModal(true);
     } catch (error) {

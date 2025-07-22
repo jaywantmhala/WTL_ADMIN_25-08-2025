@@ -25,7 +25,7 @@ const Page = () => {
     const fetchCab = async () => {
       try {
         const response = await axios.get(
-          `https://api.worldtriplink.com/vehicle/outsource/${params.status}`
+          `http://localhost:8085/vehicle/outsource/${params.status}`
         );
         setCab(response.data);
       } catch (error) {
@@ -39,7 +39,7 @@ const Page = () => {
   console.log(cab);
 
   // Assuming your images are served from this URL:
-  const imageBaseUrl = "https://api.worldtriplink.com/images/";
+  const imageBaseUrl = "http://localhost:8085/images/";
 
   return (
     <div className="flex">

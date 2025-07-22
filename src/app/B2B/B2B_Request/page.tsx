@@ -20,7 +20,7 @@ const RequestB2B = () => {
   const handleBusinessEmailBlur = async () => {
     if (!businessEmail) return;
     try {
-      const response = await fetch(`https://api.worldtriplink.com/b2b/email/${businessEmail}`);
+      const response = await fetch(`http://localhost:8085/b2b/email/${businessEmail}`);
       if (response.ok) {
         const data = await response.json();
         console.log("Fetched record by email:", data);

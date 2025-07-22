@@ -17,7 +17,7 @@ const ArrowPage = () => {
   console.log(params.id);
 
   useEffect(() => {
-    fetch(`https://api.worldtriplink.com/vehicle/${params.id}`)
+    fetch(`http://localhost:8085/vehicle/${params.id}`)
       .then((response) => response.json())
       .then((data) => setCab(data))
       .catch((error) => console.error("Error fetching vehicles:", error));
@@ -35,7 +35,7 @@ const ArrowPage = () => {
 
     axios
       .put(
-        `https://api.worldtriplink.com/vehicle/${params.id}/status`,
+        `http://localhost:8085/vehicle/${params.id}/status`,
         { status },
         {
           headers: {

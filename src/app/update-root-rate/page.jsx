@@ -149,7 +149,7 @@ const UpdateTripPricing = ({ params }) => {
   //   const destinationState = dropParts[1] || "";
 
   //   try {
-  //     const getUrl = `https://api.worldtriplink.com/oneWay2/${encodeURIComponent(pickup)}/${encodeURIComponent(drop)}`;
+  //     const getUrl = `http://localhost:8085/oneWay2/${encodeURIComponent(pickup)}/${encodeURIComponent(drop)}`;
   //     const getResponse = await fetch(getUrl);
   //     let existingTrips = [];
   //     if (getResponse.ok) {
@@ -162,10 +162,10 @@ const UpdateTripPricing = ({ params }) => {
   //     let method;
 
   //     if (!existingTrips || existingTrips.length === 0) {
-  //       apiUrl = "https://api.worldtriplink.com/oneprice";
+  //       apiUrl = "http://localhost:8085/oneprice";
   //       method = "POST";
   //     } else {
-  //       apiUrl = "https://api.worldtriplink.com/update-prices";
+  //       apiUrl = "http://localhost:8085/update-prices";
   //       method = "PUT";
   //     }
 
@@ -215,7 +215,7 @@ const UpdateTripPricing = ({ params }) => {
   const destinationState = dropParts[1] || "";
 
   try {
-    const getUrl = `https://api.worldtriplink.com/oneWay2/${encodeURIComponent(pickup)}/${encodeURIComponent(drop)}`;
+    const getUrl = `http://localhost:8085/oneWay2/${encodeURIComponent(pickup)}/${encodeURIComponent(drop)}`;
     const getResponse = await fetch(getUrl);
     let existingTrips = [];
     if (getResponse.ok) {
@@ -228,10 +228,10 @@ const UpdateTripPricing = ({ params }) => {
     let method;
 
     if (!existingTrips || existingTrips.length === 0) {
-      apiUrl = "https://api.worldtriplink.com/oneprice";
+      apiUrl = "http://localhost:8085/oneprice";
       method = "POST";
     } else {
-      apiUrl = "https://api.worldtriplink.com/update-prices";
+      apiUrl = "http://localhost:8085/update-prices";
       method = "PUT";
     }
 
@@ -318,7 +318,7 @@ const UpdateTripPricing = ({ params }) => {
     formData.append("endDate", endDate);
 
     try {
-      const response = await fetch("https://api.worldtriplink.com/upload/excel", {
+      const response = await fetch("http://localhost:8085/upload/excel", {
         method: "POST",
         body: formData,
       });
@@ -345,7 +345,7 @@ const UpdateTripPricing = ({ params }) => {
 
   const fetchJobs = async () => {
     try {
-      const res = await axios.get("https://api.worldtriplink.com/upload/excel/jobs");
+      const res = await axios.get("http://localhost:8085/upload/excel/jobs");
       setJobs(res.data);
     } catch (err) {
       console.error("Error fetching jobs:", err);
@@ -354,7 +354,7 @@ const UpdateTripPricing = ({ params }) => {
 
   const deleteJob = async () => {
     try {
-      const res = await axios.delete("https://api.worldtriplink.com/upload/excel/delete");
+      const res = await axios.delete("http://localhost:8085/upload/excel/delete");
       alert(res.data);
       fetchJobs();
     } catch (err) {
@@ -376,7 +376,7 @@ const UpdateTripPricing = ({ params }) => {
     formData.append("endDate", endDate);
 
     try {
-      const res = await axios.post("https://api.worldtriplink.com/upload/excel", formData);
+      const res = await axios.post("http://localhost:8085/upload/excel", formData);
       alert(res.data);
       fetchJobs();
     } catch (err) {
@@ -396,7 +396,7 @@ const UpdateTripPricing = ({ params }) => {
       <button 
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={() => {
-          window.location.href = "https://api.worldtriplink.com/upload/excel/export";
+          window.location.href = "http://localhost:8085/upload/excel/export";
         }}
       >
         Export Prices

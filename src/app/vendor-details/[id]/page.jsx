@@ -19,7 +19,7 @@ const VendorDetails = ({ params }) => {
     const fetchVendorDetails = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`https://api.worldtriplink.com/vendors/${id}`);
+        const response = await fetch(`http://localhost:8085/vendors/${id}`);
         const data = await response.json();
         setVendor(data);
         console.log("Image",data.vendorImage)
@@ -57,7 +57,7 @@ const VendorDetails = ({ params }) => {
 
     try {
       const response = await fetch(
-        `https://api.worldtriplink.com/vendors/update-fields/vendor/${id}`,
+        `http://localhost:8085/vendors/update-fields/vendor/${id}`,
         {
           method: "PUT",
           body: form,
@@ -229,7 +229,7 @@ alt="Vendor"
                         previewImages[name]
                           ? previewImages[name]
                           : vendor && vendor[name]
-                          ? `https://api.worldtriplink.com/${vendor[name]}`
+                          ? `http://localhost:8085/${vendor[name]}`
                           : ""
                       }
                       alt={label}

@@ -52,7 +52,7 @@ export default function AllB2B() {
   // Fetch B2B list from backend
   const fetchB2BList = async () => {
     try {
-      const res = await fetch("https://api.worldtriplink.com/b2b/all");
+      const res = await fetch("http://localhost:8085/b2b/all");
       if (!res.ok) throw new Error("Failed to fetch B2B data");
       const data = await res.json();
       console.log("Fetched B2B List:", data);
@@ -126,7 +126,7 @@ export default function AllB2B() {
         formDataToSend.append("panDocs", formData.panDocsFile, formData.panDocsFile.name);
       }
 
-      const response = await fetch("https://api.worldtriplink.com/b2b/add", {
+      const response = await fetch("http://localhost:8085/b2b/add", {
         method: "POST",
         body: formDataToSend,
       });
@@ -179,7 +179,7 @@ export default function AllB2B() {
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this record?")) return;
     try {
-      const res = await fetch(`https://api.worldtriplink.com/b2b/delete/${id}`, {
+      const res = await fetch(`http://localhost:8085/b2b/delete/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Failed to delete record");

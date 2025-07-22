@@ -33,7 +33,7 @@ export default function Bookings() {
 
   const fetchBookings = async () => {
     try {
-      const response = await axios.get("https://api.worldtriplink.com/details");
+      const response = await axios.get("http://localhost:8085/details");
       if (response.status === 200 && Array.isArray(response.data)) {
         setBookings(response.data);
         setFilteredBookings(response.data);
@@ -60,7 +60,7 @@ export default function Bookings() {
     // setSuccessMessage(null);
 
     try {
-      await axios.delete(`https://api.worldtriplink.com/delete/${bookingId}`);
+      await axios.delete(`http://localhost:8085/delete/${bookingId}`);
       // setBookings((prevBookings) =>
       //   prevBookings.filter((booking) => booking.bookingId !== bookingId)
       // );
@@ -82,7 +82,7 @@ export default function Bookings() {
   const handleUpdateStatus = async (newStatus) => {
     try {
       const response = await axios.put(
-        `https://api.worldtriplink.com/${bookingId}/status`,
+        `http://localhost:8085/${bookingId}/status`,
         { status: newStatus }
       );
       setBooking(response.data);
