@@ -70,7 +70,7 @@ const CompanyBookingManagement: React.FC = () => {
   const fetchCompanies = async (): Promise<void> => {
     try {
       setLoadingCompanies(true);
-      const response = await fetch('http://localhost:8085/unique-company-names');
+      const response = await fetch(' http://localhost:8085/unique-company-names');
       const data: string[] = await response.json();
       setCompanies(data);
     } catch (error) {
@@ -83,7 +83,7 @@ const CompanyBookingManagement: React.FC = () => {
   const fetchBookingsByCompany = async (companyName: string): Promise<void> => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:8085/byCompany?companyName=${encodeURIComponent(companyName)}`);
+      const response = await fetch(` http://localhost:8085/byCompany?companyName=${encodeURIComponent(companyName)}`);
       const data: Booking | Booking[] = await response.json();
       const bookingsArray: Booking[] = Array.isArray(data) ? data : [data];
       setAllBookings(bookingsArray);

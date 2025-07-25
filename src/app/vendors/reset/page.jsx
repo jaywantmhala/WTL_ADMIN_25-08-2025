@@ -43,7 +43,7 @@ const router = useRouter()
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8085/api/password-reset/request-reset",
+        " http://localhost:8085/api/password-reset/request-reset",
         null,
         { params: { email } }
       );
@@ -61,7 +61,7 @@ const router = useRouter()
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8085/api/password-reset/verify-otp",
+        " http://localhost:8085/api/password-reset/verify-otp",
         null,
         { params: { email, otp } }
       );
@@ -87,7 +87,7 @@ const router = useRouter()
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8085/api/password-reset/reset-password",
+        " http://localhost:8085/api/password-reset/reset-password",
         null,
         { params: { email, newPassword } }
       );

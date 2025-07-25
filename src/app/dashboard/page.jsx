@@ -16,7 +16,7 @@ const Dashboard = () => {
   const fetchBookings = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8085/details'); // Adjust API URL if needed
+      const response = await fetch(' http://localhost:8085/details'); // Adjust API URL if needed
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -47,7 +47,7 @@ const Dashboard = () => {
   // Delete a booking and update counts
   const deleteBooking = async (bookingId) => {
     try {
-      const response = await fetch(`http://localhost:8085/details/${bookingId}`, {
+      const response = await fetch(` http://localhost:8085/details/${bookingId}`, {
         method: 'DELETE',
       });
       if (!response.ok) {

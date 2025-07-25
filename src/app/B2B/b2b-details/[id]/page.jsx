@@ -18,7 +18,7 @@ export default function B2BDetailsPage() {
   useEffect(() => {
     async function fetchB2B() {
       try {
-        const response = await fetch(`http://localhost:8085/b2b/${params.id}`);
+        const response = await fetch(` http://localhost:8085/b2b/${params.id}`);
         if (!response.ok) throw new Error("B2B not found");
         const data = await response.json();
         setSelectedB2B(data);
@@ -75,7 +75,7 @@ export default function B2BDetailsPage() {
           <div className="w-1/2 h-[500px] flex flex-col justify-center items-center">
             {selectedB2B.companyLogo && (
               <img
-              src={selectedB2B?.companyLogo?.replace("http://localhost:8085/uploads/", "")}
+              src={selectedB2B?.companyLogo?.replace(" http://localhost:8085/uploads/", "")}
               alt="Company Logo"
                 className="w-full h-full object-contain"
               />
@@ -111,7 +111,7 @@ export default function B2BDetailsPage() {
               {selectedB2B.govtApprovalCertificate ? (
                 <button
                   className="bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800"
-                  onClick={() => openModal("Govt Approval Certificate", selectedB2B.govtApprovalCertificate?.replace("http://localhost:8085/uploads/", ""))}
+                  onClick={() => openModal("Govt Approval Certificate", selectedB2B.govtApprovalCertificate?.replace(" http://localhost:8085/uploads/", ""))}
                 >
                   Show Image
                 </button>
@@ -128,7 +128,7 @@ export default function B2BDetailsPage() {
               {selectedB2B.companyDocs ? (
                 <button
                   className="bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800"
-                  onClick={() => openModal("Company Documents", selectedB2B.companyDocs?.replace("http://localhost:8085/uploads/", ""))}
+                  onClick={() => openModal("Company Documents", selectedB2B.companyDocs?.replace(" http://localhost:8085/uploads/", ""))}
                 >
                   Show Image
                 </button>
@@ -145,7 +145,7 @@ export default function B2BDetailsPage() {
               {selectedB2B.panDocs ? (
                 <button
                   className="bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800"
-                  onClick={() => openModal("PAN Documents", selectedB2B.panDocs?.replace("http://localhost:8085/uploads/", ""))}
+                  onClick={() => openModal("PAN Documents", selectedB2B.panDocs?.replace(" http://localhost:8085/uploads/", ""))}
                 >
                   Show Image
                 </button>

@@ -13,7 +13,7 @@ const ArrowPage = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8085/driverAdmin/${params.id}`)
+      .get(` http://localhost:8085/driverAdmin/${params.id}`)
       .then((response) => {
         setCab(response.data);
       })
@@ -23,7 +23,7 @@ const ArrowPage = () => {
   const updateStatus = (status) => {
     axios
       .put(
-        `http://localhost:8085/driverAdmin/${params.id}/status`,
+        ` http://localhost:8085/driverAdmin/${params.id}/status`,
         { status },
         { headers: { "Content-Type": "application/json" } }
       )

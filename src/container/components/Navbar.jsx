@@ -24,6 +24,7 @@ import { useRouter } from "next/navigation";
 
 const Layout = ({ children=null }) => {
   const [openDropdown, setOpenDropdown] = useState(null); // Track which dropdown is open
+  const [openSubDropdown, setOpenSubDropdown] = useState(null); // Track which sub-dropdown is open
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track if the user is logged in
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Track if the sidebar is open on mobile
   const router = useRouter();
@@ -41,6 +42,14 @@ const Layout = ({ children=null }) => {
 
   const toggleDropdown = (dropdownKey) => {
     setOpenDropdown(openDropdown === dropdownKey ? null : dropdownKey);
+    // Close sub-dropdown when main dropdown changes
+    if (openDropdown !== dropdownKey) {
+      setOpenSubDropdown(null);
+    }
+  };
+
+  const toggleSubDropdown = (subDropdownKey) => {
+    setOpenSubDropdown(openSubDropdown === subDropdownKey ? null : subDropdownKey);
   };
 
   const handleLogout = () => {
@@ -110,14 +119,43 @@ const Layout = ({ children=null }) => {
                     Online Booking
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href="/online/custom-booking"
-                    className="flex items-center py-2 px-4 hover:bg-blue-100 rounded"
+                <li className="relative">
+                  <button
+                    onClick={() => toggleSubDropdown("customBooking")}
+                    className="flex items-center justify-between w-full py-2 px-4 hover:bg-blue-100 rounded text-left"
                   >
-                    <FaEdit className="mr-2" />
-                    Custom Booking
-                  </Link>
+                    <div className="flex items-center">
+                      <FaEdit className="mr-2" />
+                      Custom Booking
+                    </div>
+                    <FaChevronDown
+                      className={`ml-2 transform ${
+                        openSubDropdown === "customBooking" ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  {openSubDropdown === "customBooking" && (
+                    <ul className="mt-1 ml-4 bg-gray-50 text-gray-700 rounded shadow-sm">
+                      <li>
+                        <Link
+                          href="/online/custom-booking"
+                          className="flex items-center py-2 px-4 hover:bg-gray-200 rounded text-sm"
+                        >
+                          <FaEdit className="mr-2 text-xs" />
+                          Booking Management
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/wtlinvoice"
+                          className="flex items-center py-2 px-4 hover:bg-gray-200 rounded text-sm"
+                        >
+                          <FaBusinessTime className="mr-2 text-xs" />
+                          WTL Invoice
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
                 </li>
                 <li>
                   <Link

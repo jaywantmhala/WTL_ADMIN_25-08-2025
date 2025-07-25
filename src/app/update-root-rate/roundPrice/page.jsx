@@ -181,7 +181,7 @@ const UpdateTripPricing = ({ params }) => {
       });
 
       // Call the GET API for round-trip to check for existing data
-      const getUrl = `http://localhost:8085/roundTrip/${encodeURIComponent(pickup)}/${encodeURIComponent(drop)}`;
+      const getUrl = ` http://localhost:8085/roundTrip/${encodeURIComponent(pickup)}/${encodeURIComponent(drop)}`;
       console.log("Checking existing trips with URL:", getUrl);
       
       const getResponse = await fetch(getUrl);
@@ -198,12 +198,12 @@ const UpdateTripPricing = ({ params }) => {
 
       if (!existingTrips || existingTrips.length === 0) {
         // No record found; use POST API for creating a new round trip pricing record
-        apiUrl = "http://localhost:8085/rounprice";
+        apiUrl = " http://localhost:8085/rounprice";
         method = "POST";
         console.log("No existing trip found, creating new one");
       } else {
         // Record exists; call the PUT API to update pricing
-        apiUrl = "http://localhost:8085/update-roundway-prices";
+        apiUrl = " http://localhost:8085/update-roundway-prices";
         method = "PUT";
         console.log("Existing trip found, updating prices");
       }
@@ -289,7 +289,7 @@ const UpdateTripPricing = ({ params }) => {
 
   const fetchJobs = async () => {
     try {
-      const res = await axios.get("http://localhost:8085/upload/roundTrip/excel/jobs");
+      const res = await axios.get(" http://localhost:8085/upload/roundTrip/excel/jobs");
       setJobs(res.data);
     } catch (err) {
       console.error("Error fetching jobs:", err);
@@ -298,7 +298,7 @@ const UpdateTripPricing = ({ params }) => {
 
   const deleteJob = async () => {
     try {
-      const res = await axios.delete("http://localhost:8085/upload/roundTrip/excel/delete");
+      const res = await axios.delete(" http://localhost:8085/upload/roundTrip/excel/delete");
       alert(res.data);
       fetchJobs();
     } catch (err) {
@@ -320,7 +320,7 @@ const UpdateTripPricing = ({ params }) => {
     formData.append("endDate", endDate);
 
     try {
-      const res = await axios.post("http://localhost:8085/upload/roundTrip/excel", formData);
+      const res = await axios.post(" http://localhost:8085/upload/roundTrip/excel", formData);
       alert(res.data);
       fetchJobs();
     } catch (err) {
@@ -340,7 +340,7 @@ const UpdateTripPricing = ({ params }) => {
               : "One Way Trip Prices Outstation"}
           </h1>
           <a
-            href="http://localhost:8085/upload/excel/exportRound"
+            href=" http://localhost:8085/upload/excel/exportRound"
             className="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition"
           >
             ExportRoundPrice

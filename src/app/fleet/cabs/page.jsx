@@ -69,7 +69,7 @@ const Page = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8085/cabAdmin/save",
+        " http://localhost:8085/cabAdmin/save",
         data,
         {
           headers: {
@@ -117,7 +117,7 @@ const Page = () => {
 
   const fetchCabs = async () => {
     try {
-      const response = await axios.get("http://localhost:8085/cabAdmin/all");
+      const response = await axios.get(" http://localhost:8085/cabAdmin/all");
       setCab(response.data);
       setFilteredCab(response.data); // Initialize filteredCab with all cabs
     } catch (error) {

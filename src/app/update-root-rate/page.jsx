@@ -29,6 +29,10 @@ const UpdateTripPricing = ({ params }) => {
   const [showServiceCharge, setShowServiceCharge] = useState(false);
   const [showGST, setShowGST] = useState(false);
 
+  // Success popup state
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
   // Service charge and GST rates
   const SERVICE_CHARGE_RATE = 10; // 10%
   const GST_RATE = 5; // 5%
@@ -149,7 +153,7 @@ const UpdateTripPricing = ({ params }) => {
   //   const destinationState = dropParts[1] || "";
 
   //   try {
-  //     const getUrl = `http://localhost:8085/oneWay2/${encodeURIComponent(pickup)}/${encodeURIComponent(drop)}`;
+  //     const getUrl = ` http://localhost:8085/oneWay2/${encodeURIComponent(pickup)}/${encodeURIComponent(drop)}`;
   //     const getResponse = await fetch(getUrl);
   //     let existingTrips = [];
   //     if (getResponse.ok) {
@@ -162,10 +166,10 @@ const UpdateTripPricing = ({ params }) => {
   //     let method;
 
   //     if (!existingTrips || existingTrips.length === 0) {
-  //       apiUrl = "http://localhost:8085/oneprice";
+  //       apiUrl = " http://localhost:8085/oneprice";
   //       method = "POST";
   //     } else {
-  //       apiUrl = "http://localhost:8085/update-prices";
+  //       apiUrl = " http://localhost:8085/update-prices";
   //       method = "PUT";
   //     }
 
@@ -215,7 +219,7 @@ const UpdateTripPricing = ({ params }) => {
   const destinationState = dropParts[1] || "";
 
   try {
-    const getUrl = `http://localhost:8085/oneWay2/${encodeURIComponent(pickup)}/${encodeURIComponent(drop)}`;
+    const getUrl = ` http://localhost:8085/oneWay2/${encodeURIComponent(pickup)}/${encodeURIComponent(drop)}`;
     const getResponse = await fetch(getUrl);
     let existingTrips = [];
     if (getResponse.ok) {
@@ -228,14 +232,14 @@ const UpdateTripPricing = ({ params }) => {
     let method;
 
     if (!existingTrips || existingTrips.length === 0) {
-      apiUrl = "http://localhost:8085/oneprice";
+      apiUrl = " http://localhost:8085/oneprice";
       method = "POST";
     } else {
-      apiUrl = "http://localhost:8085/update-prices";
+      apiUrl = " http://localhost:8085/update-prices";
       method = "PUT";
     }
 
-    // ✅ FIXED: Changed parameter names to match backend expectations
+    // ✅ FIXED: Send only base prices to backend (no charges applied to stored rates)
     const queryParams = new URLSearchParams({
       sourceState: sourceState,
       destinationState: destinationState,
@@ -246,7 +250,7 @@ const UpdateTripPricing = ({ params }) => {
       sedanPremiumPrice: prices.sedanPremium,
       suvPrice: prices.suv,
       suvPlusPrice: prices.suvPlus,
-      ertiga: prices.ertiga,  // ✅ FIXED: Changed from "ertigaPrice" to "ertiga"
+      ertiga: prices.ertiga,
       ...(method === "POST" ? { status: "s" } : {}),
     }).toString();
 
@@ -266,17 +270,15 @@ const UpdateTripPricing = ({ params }) => {
     }
 
     const result = await apiResponse.json();
-    alert(method === "POST" ? "Trip pricing created successfully!" : "Trip pricing updated successfully!");
-    
-    // ✅ ADDED: Clear form after successful submission
-    setPrices({
-      hatchback: "",
-      sedan: "",
-      sedanPremium: "",
-      suv: "",
-      suvPlus: "",
-      ertiga: ""
-    });
+
+    // ✅ Show success popup instead of alert
+    setShowSuccessPopup(true);
+    setSuccessMessage(method === "POST" ? "Trip pricing created successfully!" : "Trip pricing updated successfully!");
+
+    // Auto-hide popup after 3 seconds
+    setTimeout(() => {
+      setShowSuccessPopup(false);
+    }, 3000);
     
   } catch (err) {
     console.error('Full error:', err);
@@ -288,6 +290,20 @@ const UpdateTripPricing = ({ params }) => {
     if (!distance || isNaN(price)) return null;
     const numericDistance = parseFloat(distance.replace(/[^\d.-]/g, ""));
     return numericDistance * price;
+  };
+
+  const calculateDistanceTotalWithCharges = (price) => {
+    const baseTotal = calculateTotal(price);
+    if (!baseTotal) return null;
+
+    let finalTotal = baseTotal;
+    if (showServiceCharge) {
+      finalTotal += calculateServiceCharge(baseTotal);
+    }
+    if (showGST) {
+      finalTotal += calculateGST(baseTotal);
+    }
+    return finalTotal;
   };
 
   const handleFileChange = (e) => {
@@ -318,7 +334,7 @@ const UpdateTripPricing = ({ params }) => {
     formData.append("endDate", endDate);
 
     try {
-      const response = await fetch("http://localhost:8085/upload/excel", {
+      const response = await fetch(" http://localhost:8085/upload/excel", {
         method: "POST",
         body: formData,
       });
@@ -345,7 +361,7 @@ const UpdateTripPricing = ({ params }) => {
 
   const fetchJobs = async () => {
     try {
-      const res = await axios.get("http://localhost:8085/upload/excel/jobs");
+      const res = await axios.get(" http://localhost:8085/upload/excel/jobs");
       setJobs(res.data);
     } catch (err) {
       console.error("Error fetching jobs:", err);
@@ -354,7 +370,7 @@ const UpdateTripPricing = ({ params }) => {
 
   const deleteJob = async () => {
     try {
-      const res = await axios.delete("http://localhost:8085/upload/excel/delete");
+      const res = await axios.delete(" http://localhost:8085/upload/excel/delete");
       alert(res.data);
       fetchJobs();
     } catch (err) {
@@ -376,7 +392,7 @@ const UpdateTripPricing = ({ params }) => {
     formData.append("endDate", endDate);
 
     try {
-      const res = await axios.post("http://localhost:8085/upload/excel", formData);
+      const res = await axios.post(" http://localhost:8085/upload/excel", formData);
       alert(res.data);
       fetchJobs();
     } catch (err) {
@@ -396,7 +412,7 @@ const UpdateTripPricing = ({ params }) => {
       <button 
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={() => {
-          window.location.href = "http://localhost:8085/upload/excel/export";
+          window.location.href = " http://localhost:8085/upload/excel/export";
         }}
       >
         Export Prices
@@ -513,10 +529,13 @@ const UpdateTripPricing = ({ params }) => {
             </div>
 
             {(showServiceCharge || showGST) && (
-              <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+              <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
                 <p className="text-sm text-blue-700">
-                  <strong>Note:</strong> These charges are for display purposes only and will not be saved to the database.
-                  Only the base prices will be stored.
+                  <strong>ℹ️ Note:</strong> These charges will be applied only to the distance calculation display for reference.
+                  The base rates saved to the database will remain unchanged.
+                  {showServiceCharge && ` Service Charge: +${SERVICE_CHARGE_RATE}%`}
+                  {showServiceCharge && showGST && ', '}
+                  {showGST && ` GST: +${GST_RATE}%`}
                 </p>
               </div>
             )}
@@ -552,7 +571,7 @@ const UpdateTripPricing = ({ params }) => {
                     )}
 
                     {/* Price Breakdown */}
-                    {basePrice > 0 && (showServiceCharge || showGST) && (
+                    {/* {basePrice > 0 && (showServiceCharge || showGST) && (
                       <div className="mt-2 p-3 bg-gray-50 rounded-lg text-xs space-y-1 border">
                         <div className="flex justify-between">
                           <span>Base Price:</span>
@@ -575,13 +594,42 @@ const UpdateTripPricing = ({ params }) => {
                           <span>{formatCurrency(totalWithCharges)}</span>
                         </div>
                       </div>
-                    )}
+                    )} */}
 
-                    {/* Distance-based calculation (existing functionality) */}
+                    {/* Distance-based calculation with charges applied */}
                     {prices[carType] && distance && (
-                      <div className="mt-2 text-sm text-gray-600 bg-yellow-50 p-2 rounded border">
-                        <div className="font-medium">Distance Calculation:</div>
-                        <div>Total: {calculateTotal(prices[carType])} (Price × Distance)</div>
+                      <div className="mt-2 text-sm bg-yellow-50 p-3 rounded border border-yellow-200">
+                        <div className="font-medium text-gray-800 mb-2">Distance Calculation:</div>
+                        <div className="space-y-1">
+                          <div className="flex justify-between">
+                            <span>Base Total (Price × Distance):</span>
+                            <span className="font-medium">₹{calculateTotal(prices[carType])?.toFixed(2)}</span>
+                          </div>
+                          {showServiceCharge && (
+                            <div className="flex justify-between text-blue-600">
+                              <span>Service Charge ({SERVICE_CHARGE_RATE}%):</span>
+                              <span>+₹{calculateServiceCharge(calculateTotal(prices[carType]) || 0).toFixed(2)}</span>
+                            </div>
+                          )}
+                          {showGST && (
+                            <div className="flex justify-between text-green-600">
+                              <span>GST ({GST_RATE}%):</span>
+                              <span>+₹{calculateGST(calculateTotal(prices[carType]) || 0).toFixed(2)}</span>
+                            </div>
+                          )}
+                          {(showServiceCharge || showGST) && (
+                            <div className="flex justify-between border-t pt-1 font-semibold text-gray-800">
+                              <span>Final Total:</span>
+                              <span>₹{calculateDistanceTotalWithCharges(prices[carType])?.toFixed(2)}</span>
+                            </div>
+                          )}
+                          {!showServiceCharge && !showGST && (
+                            <div className="flex justify-between font-semibold text-gray-800">
+                              <span>Total:</span>
+                              <span>₹{calculateTotal(prices[carType])?.toFixed(2)}</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     )}
                   </div>
@@ -713,6 +761,42 @@ const UpdateTripPricing = ({ params }) => {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* ✅ SUCCESS POPUP */}
+        {showSuccessPopup && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-xl shadow-2xl p-8 max-w-md mx-4 transform animate-pulse">
+              <div className="text-center">
+                {/* Success Icon */}
+                <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
+                  <svg className="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+
+                {/* Success Message */}
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Success!</h3>
+                <p className="text-gray-600 mb-6">{successMessage}</p>
+
+                {/* Progress Bar */}
+                <div className="w-full bg-gray-200 rounded-full h-1 mb-4">
+                  <div className="bg-green-600 h-1 rounded-full animate-pulse" style={{width: '100%'}}></div>
+                </div>
+
+                {/* Auto-close message */}
+                <p className="text-sm text-gray-500">This popup will close automatically in 3 seconds</p>
+
+                {/* Manual Close Button */}
+                <button
+                  onClick={() => setShowSuccessPopup(false)}
+                  className="mt-4 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 font-medium"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
           </div>
         )}
 

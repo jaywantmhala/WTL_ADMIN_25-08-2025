@@ -640,6 +640,7 @@ const Bookings = () => {
       const response = await axios.get("http://localhost:8085/details");
       if (response.status === 200 && Array.isArray(response.data)) {
         setBookings(response.data);
+        console.log(response.data);
       } else {
         setBookings([]);
       }
@@ -2212,7 +2213,7 @@ const Bookings = () => {
                                 </div>
                               )}
                               <div className="border-t border-gray-300 pt-2 flex justify-between text-lg font-bold text-gray-800">
-                                <span>Total Amount:</span>
+                                <span>Vendor Amount:</span>
                                 <span>₹{totalData.total.toLocaleString()}</span>
                               </div>
                             </div>
@@ -2231,7 +2232,7 @@ const Bookings = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Total Amount
+                        Vendor Amount
                         <span className="text-xs text-green-600 ml-2">(Auto-calculated)</span>
                       </label>
                       <input
@@ -2248,7 +2249,7 @@ const Bookings = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Collection
+                       Cash Collection
                       </label>
                       <input
                         type="number"

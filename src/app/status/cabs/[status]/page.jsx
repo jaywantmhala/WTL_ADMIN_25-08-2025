@@ -25,7 +25,7 @@ const Page = () => {
     const fetchCab = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8085/cabAdmin/cab/${params.status}`
+          ` http://localhost:8085/cabAdmin/cab/${params.status}`
         );
         setCab(response.data);
       } catch (error) {
@@ -39,7 +39,7 @@ const Page = () => {
   console.log(cab);
 
   // Assuming your images are served from this URL:
-  const imageBaseUrl = "http://localhost:8085/images/";
+  const imageBaseUrl = " http://localhost:8085/images/";
 
   return (
     <div className="flex">

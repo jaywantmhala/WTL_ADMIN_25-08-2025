@@ -7,7 +7,7 @@ import axios from "axios";
 const AddDriverModal = ({ isOpen, onClose, onSuccess}) => {
   const [formData, setFormData] = useState({
     DriverName: "",
-    ContactNo: "",
+    contactNo: "",
     AltMobNum: "",
     Adress: "",
     otherDetails: "",
@@ -54,7 +54,7 @@ const AddDriverModal = ({ isOpen, onClose, onSuccess}) => {
 
     const data = new FormData();
     data.append("DriverName", formData.DriverName);
-    data.append("ContactNo", formData.ContactNo);
+    data.append("contactNo", formData.contactNo);
     data.append("AltMobNum", formData.AltMobNum);
     data.append("Adress", formData.Adress);
     data.append("otherDetails", formData.otherDetails);
@@ -73,7 +73,7 @@ const AddDriverModal = ({ isOpen, onClose, onSuccess}) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8085/driverAdmin/save",
+        " http://localhost:8085/driverAdmin/save",
         data,
         {
           headers: {
@@ -93,7 +93,7 @@ const AddDriverModal = ({ isOpen, onClose, onSuccess}) => {
       // ✅ OPTIONAL: Reset form data on success
       setFormData({
         DriverName: "",
-        ContactNo: "",
+        contactNo: "",
         AltMobNum: "",
         Adress: "",
         otherDetails: "",
@@ -128,7 +128,7 @@ const AddDriverModal = ({ isOpen, onClose, onSuccess}) => {
   const handleReset = () => {
     setFormData({
       DriverName: "",
-      ContactNo: "",
+      contactNo: "",
       AltMobNum: "",
       emailId: "",
       Adress: "",
@@ -208,8 +208,8 @@ const AddDriverModal = ({ isOpen, onClose, onSuccess}) => {
                 <label className="font-medium">Contact No.</label>
                 <input
                   type="text"
-                  name="ContactNo"
-                  value={formData.ContactNo}
+                  name="contactNo"
+                  value={formData.contactNo}
                   onChange={handleChange}
                   disabled={isLoading}
                   className={`border p-2 rounded-md w-full ${

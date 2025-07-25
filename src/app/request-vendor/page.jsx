@@ -17,7 +17,7 @@ export default function RequestVendorForm() {
 
     try {
       // Fetch Vendor Details by Email
-      const vendorResponse = await fetch(`http://localhost:8085/vendors/email/${email}`);
+      const vendorResponse = await fetch(` http://localhost:8085/vendors/email/${email}`);
       if (!vendorResponse.ok) {
         throw new Error("Failed to fetch vendor details");
       }
