@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { getMessaging, getToken, onMessage } from 'firebase/messaging';
+import { messaging} from '../../firebase-config';
 
 export default function Login() {
   // State to store username and password input
@@ -32,6 +34,46 @@ export default function Login() {
       // Store user data in localStorage
       localStorage.setItem("user", JSON.stringify(data));
 
+      
+      if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/firebase-messaging-sw.js")
+        .then((registration) => {
+          console.log("Service Worker registered:", registration);
+
+          // Get token
+          getToken(messaging, {
+            vapidKey: "BFeBBpUyxnCf54AL_Z16F357mX3oYFetAsdoMNhMrBmd1rPSFbpfFidAmq4Ho2NKNeSLe_7ogKudgk6lx8w5mts",
+            serviceWorkerRegistration: registration,
+          })
+            .then((currentToken) => {
+              if (currentToken) {
+                console.log("FCM Token:", currentToken);
+                // Send to backend if needed
+               const user = JSON.parse(localStorage.getItem("user"));
+const userId = user?.id; // or get from Redux/context
+                 console.log("userId", userId);
+
+            fetch("http://localhost:8085/api/register-admin-token", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                fcmToken: currentToken,
+                userId: userId
+              })
+            });
+              } else {
+                console.log("No registration token available.");
+              }
+            })
+            .catch((err) => {
+              console.error("An error occurred while retrieving token.", err);
+            });
+        });
+    }
+
       // If the response contains a redirectUrl, use it; otherwise redirect to home page
       if (data.redirectUrl) {
         router.push(data.redirectUrl);
@@ -45,6 +87,13 @@ export default function Login() {
       // Optionally handle error display to the user here
     }
   };
+
+  useEffect(() => {
+  onMessage(messaging, (payload) => {
+    console.log('Message received:', payload);
+    // You can show in-app toast/notification here
+  });
+}, []);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">

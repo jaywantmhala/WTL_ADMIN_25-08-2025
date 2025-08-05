@@ -2,6 +2,13 @@
 import { useEffect, useState } from 'react';
 import Home from '../../container/components/Navbar';
 import { FaBusinessTime, FaCheck, FaUsers, FaCar, FaTimes } from 'react-icons/fa';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import NotificationClient from "./NotificationClient";
+
+import { FaBell } from 'react-icons/fa'; // Already imported other Fa icons
+
 
 const Dashboard = () => {
   const [openDropdown, setOpenDropdown] = useState(null); // Track which dropdown is open
@@ -11,6 +18,18 @@ const Dashboard = () => {
   const [canceledCount, setCanceledCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [notifications, setNotifications] = useState([]);
+const [showSidebar, setShowSidebar] = useState(false);
+  
+  const [notificationSound] = useState(() => {
+  if (typeof window !== 'undefined') {
+    const audio = new Audio('/notification.mp3');
+    audio.volume = 0.5; // Set volume (0.0 to 1.0)
+    return audio;
+  }
+  return null;
+});
+  
 
   // Fetch all booking data and compute counts
   const fetchBookings = async () => {
@@ -81,8 +100,11 @@ const Dashboard = () => {
   };
 
   return (
+    <><NotificationClient />
     <div className="flex h-screen overflow-hidden">
   {/* Sidebar - fixed and not scrollable */}
+   
+  {/* <ToastContainer /> */}
   <div className="h-full">
     <Home />
   </div>
@@ -155,6 +177,7 @@ const Dashboard = () => {
     </div>
   </div>
 </div>
+</>
   );
 };
 

@@ -21,6 +21,10 @@ import {
 } from "react-icons/bs";
 import { FaPeopleGroup, FaChartPie } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
+import dynamic from 'next/dynamic';
+
+const NotificationClient = dynamic(() => import('../../app/dashboard/NotificationClient'), { ssr: false });
+
 
 const Layout = ({ children=null }) => {
   const [openDropdown, setOpenDropdown] = useState(null); // Track which dropdown is open
@@ -384,6 +388,7 @@ const Layout = ({ children=null }) => {
 
       {/* Main Content */}
       <div className="flex-1 p-6 mt-16 md:mt-0 z-100 text-black">{children}</div>
+      <NotificationClient />
     </div>
   );
 };

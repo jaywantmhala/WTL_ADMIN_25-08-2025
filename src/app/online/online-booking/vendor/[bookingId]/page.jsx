@@ -831,6 +831,26 @@ const Page = () => {
                   <td className="p-2">{booking.serviceCharge}</td>
                 </tr>
                 <tr className="border-b">
+                  <th className="p-2 bg-gray-100">Payment Method</th>
+                  <td className="p-2">{booking.paymentMethod}</td>
+                </tr>
+                <tr className="border-b">
+                  <th className="p-2 bg-gray-100">Payment Type</th>
+                  <td className="p-2">{booking.paymentType}</td>
+                </tr>
+                <tr className="border-b">
+                  <th className="p-2 bg-gray-100">Payment Status</th>
+                  <td className="p-2">{booking.paymentStatus}</td>
+                </tr>
+                <tr className="border-b">
+                  <th className="p-2 bg-gray-100">Payment Amount</th>
+                  <td className="p-2">{booking.paymentAmount}</td>
+                </tr>
+                <tr className="border-b">
+                  <th className="p-2 bg-gray-100">Remaining Amount</th>
+                  <td className="p-2">{booking.remainingAmount}</td>
+                </tr>
+                <tr className="border-b">
                   <th className="p-2 bg-gray-100">Car</th>
                   <td className="p-2">{booking.car || "N/A"}</td>
                 </tr>
