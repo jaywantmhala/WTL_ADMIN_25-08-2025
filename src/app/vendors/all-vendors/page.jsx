@@ -7,7 +7,7 @@ import Navbar from "../../../container/components/Navbar";
 // Set the base URL for API calls.
 // NOTE: "localhost" will not work on mobile devices. 
 // Update BASE_URL to your server's accessible IP address if needed.
-const BASE_URL = " http://localhost:8085";
+const BASE_URL = " https://api.worldtriplink.com";
 
 const AllVendors = () => {
   // State for manual email modal

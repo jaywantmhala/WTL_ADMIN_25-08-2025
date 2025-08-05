@@ -113,7 +113,7 @@ const PricingManagement = () => {
     setSuccess('');
 
     try {
-      const response = await fetch(` http://localhost:8085/api/oneFiftypricing?distance=${distance}`);
+      const response = await fetch(` https://api.worldtriplink.com/api/oneFiftypricing?distance=${distance}`);
 
       if (response.ok) {
         const data = await response.json();
@@ -272,11 +272,11 @@ const PricingManagement = () => {
       if (existingPricing) {
         // Update existing pricing
         params.append('id', existingPricing.id.toString());
-        url = ` http://localhost:8085/api/oneFiftyupdate?${params.toString()}`;
+        url = ` https://api.worldtriplink.com/api/oneFiftyupdate?${params.toString()}`;
         method = 'PUT';
       } else {
         // Create new pricing
-        url = ` http://localhost:8085/api/oneFiftyCreate?${params.toString()}`;
+        url = ` https://api.worldtriplink.com/api/oneFiftyCreate?${params.toString()}`;
         method = 'POST';
       }
 

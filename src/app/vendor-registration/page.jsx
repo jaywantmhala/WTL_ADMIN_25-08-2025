@@ -86,7 +86,7 @@ export default function Page() {
     });
 
     try {
-      const res = await fetch(" http://localhost:8085/vendors/add", {
+      const res = await fetch(" https://api.worldtriplink.com/vendors/add", {
         method: "POST",
         body: formData,
       });

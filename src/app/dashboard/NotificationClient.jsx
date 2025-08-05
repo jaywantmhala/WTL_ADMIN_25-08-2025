@@ -46,7 +46,7 @@ export default function NotificationClient() {
         throw new Error('User ID or token missing');
       }
 
-      const response = await fetch('http://localhost:8085/api/register-admin-token', {
+      const response = await fetch('https://api.worldtriplink.com/api/register-admin-token', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -34,7 +34,7 @@ const AllVendors = () => {
     const fetchVendors = async () => {
       setLoading(true);
       try {
-        const response = await fetch(" http://localhost:8085/vendors/allVendors");
+        const response = await fetch(" https://api.worldtriplink.com/vendors/allVendors");
         const data = await response.json();
         setVendors(data);
       } catch (error) {
@@ -61,7 +61,7 @@ const AllVendors = () => {
     });
 
     try {
-      const response = await fetch(" http://localhost:8085/vendors/add", {
+      const response = await fetch(" https://api.worldtriplink.com/vendors/add", {
         method: "POST",
         body: formData,
       });
@@ -102,7 +102,7 @@ const AllVendors = () => {
     if (!window.confirm("Are you sure you want to delete this vendor?")) return;
 
     try {
-      const response = await fetch(` http://localhost:8085/vendors/delete/${vendorId}`, {
+      const response = await fetch(` https://api.worldtriplink.com/vendors/delete/${vendorId}`, {
         method: "DELETE",
       });
 

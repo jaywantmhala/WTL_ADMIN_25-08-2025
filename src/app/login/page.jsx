@@ -22,7 +22,7 @@ export default function Login() {
 
     try {
       // Make POST request to login API
-      const response = await axios.post(" http://localhost:8085/wtlLogin", {
+      const response = await axios.post(" https://api.worldtriplink.com/wtlLogin", {
         username,
         password,
       });
@@ -54,7 +54,7 @@ export default function Login() {
 const userId = user?.id; // or get from Redux/context
                  console.log("userId", userId);
 
-            fetch("http://localhost:8085/api/register-admin-token", {
+            fetch("https://api.worldtriplink.com/api/register-admin-token", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"

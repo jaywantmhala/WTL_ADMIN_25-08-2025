@@ -63,7 +63,7 @@ const Outsourceform = ({ isOpen, onClose, onSuccess }) => {
 
     try {
       const response = await axios.post(
-        " http://localhost:8085/vehicle/save",
+        " https://api.worldtriplink.com/vehicle/save",
         data,
         {
           headers: {

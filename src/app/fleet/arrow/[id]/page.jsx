@@ -22,7 +22,7 @@ const ArrowPage = () => {
   };
 
   useEffect(() => {
-    fetch(` http://localhost:8085/cabAdmin/${params.id}`)
+    fetch(` https://api.worldtriplink.com/cabAdmin/${params.id}`)
       .then((response) => response.json())
       .then((data) => setCab(data))
       .catch((error) => console.error("Error fetching vehicles:", error));
@@ -38,7 +38,7 @@ const ArrowPage = () => {
 
     axios
       .put(
-        ` http://localhost:8085/cabAdmin/${params.id}/status`,
+        ` https://api.worldtriplink.com/cabAdmin/${params.id}/status`,
         { status },
         {
           headers: {

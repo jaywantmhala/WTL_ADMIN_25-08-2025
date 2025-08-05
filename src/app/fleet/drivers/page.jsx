@@ -62,7 +62,7 @@ const page = () => {
 
   const fetchDrivers = async () => {
     try {
-      const response = await fetch(" http://localhost:8085/driverAdmin/all");
+      const response = await fetch(" https://api.worldtriplink.com/driverAdmin/all");
       const data = await response.json();
       setDriver(data);
       setFilteredDrivers(data); // Initialize filteredDrivers with all drivers

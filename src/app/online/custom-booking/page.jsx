@@ -312,7 +312,7 @@ const Bookings = () => {
         params.append('packageName', packageName);
       }
 
-      const apiUrl = `http://localhost:8085/api/cab1?${params.toString()}`;
+      const apiUrl = `https://api.worldtriplink.com/api/cab1?${params.toString()}`;
       console.log('Fetching pricing from:', apiUrl);
       console.log('Parameters:', Object.fromEntries(params));
 
@@ -569,7 +569,7 @@ const Bookings = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8085/create", {
+      const response = await fetch("https://api.worldtriplink.com/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -637,7 +637,7 @@ const Bookings = () => {
   // Fetch bookings from the backend
   const fetchBookings = async () => {
     try {
-      const response = await axios.get("http://localhost:8085/details");
+      const response = await axios.get("https://api.worldtriplink.com/details");
       if (response.status === 200 && Array.isArray(response.data)) {
         setBookings(response.data);
         console.log(response.data);
@@ -669,7 +669,7 @@ const Bookings = () => {
     if (!confirmed) return;
 
     try {
-      await axios.delete(`http://localhost:8085/delete/${bookingId}`);
+      await axios.delete(`https://api.worldtriplink.com/delete/${bookingId}`);
       setBookings((prevBookings) =>
         prevBookings.filter((booking) => booking.bookingId !== bookingId)
       );
@@ -691,7 +691,7 @@ const Bookings = () => {
       console.log("Fetching booking data for ID:", bookingId);
 
       // Fetch booking data from API
-      const response = await fetch(`http://localhost:8085/booking/${bookingId}`, {
+      const response = await fetch(`https://api.worldtriplink.com/booking/${bookingId}`, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -1929,7 +1929,7 @@ const Bookings = () => {
                             <div className="mb-2">
                               <strong>URL:</strong>
                               <div className="bg-white p-2 rounded border mt-1 font-mono text-xs break-all">
-                                {`http://localhost:8085/api/cab1?tripType=${tripType}&pickupLocation=${encodeURIComponent(userPickup)}&dropLocation=${encodeURIComponent(userDrop)}&date=${startDate || new Date().toISOString().split('T')[0]}&time=${time || '10:00'}${distance ? `&distance=${distance.replace(/[^0-9.]/g, '')}` : ''}${tripType === 'roundTrip' && returnDate ? `&Returndate=${returnDate}` : ''}${tripType === 'rental' && packageName ? `&packageName=${packageName}` : ''}`}
+                                {`https://api.worldtriplink.com/api/cab1?tripType=${tripType}&pickupLocation=${encodeURIComponent(userPickup)}&dropLocation=${encodeURIComponent(userDrop)}&date=${startDate || new Date().toISOString().split('T')[0]}&time=${time || '10:00'}${distance ? `&distance=${distance.replace(/[^0-9.]/g, '')}` : ''}${tripType === 'roundTrip' && returnDate ? `&Returndate=${returnDate}` : ''}${tripType === 'rental' && packageName ? `&packageName=${packageName}` : ''}`}
                               </div>
                             </div>
                             <div><strong>Method:</strong> GET</div>

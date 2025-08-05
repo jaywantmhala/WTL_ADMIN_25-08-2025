@@ -542,7 +542,7 @@ export default function BookingDetailPage() {
   const fetchVendors = async () => {
     try {
       setLoadingVendors(true);
-      const response = await fetch(" http://localhost:8085/vendors/allVendors");
+      const response = await fetch(" https://api.worldtriplink.com/vendors/allVendors");
       if (!response.ok) throw new Error("Failed to fetch vendors");
       const vendorData = await response.json();
       setVendors(vendorData);
@@ -561,7 +561,7 @@ export default function BookingDetailPage() {
   const fetchAdminDrivers = async () => {
     try {
       setLoadingAdminDrivers(true);
-      const response = await fetch(" http://localhost:8085/driverAdmin/all");
+      const response = await fetch(" https://api.worldtriplink.com/driverAdmin/all");
       if (!response.ok) throw new Error("Failed to fetch admin drivers");
       const driverData = await response.json();
       setAdminDrivers(driverData);
@@ -580,7 +580,7 @@ export default function BookingDetailPage() {
   const fetchAdminCabs = async () => {
     try {
       setLoadingAdminCabs(true);
-      const response = await fetch(" http://localhost:8085/cabAdmin/all");
+      const response = await fetch(" https://api.worldtriplink.com/cabAdmin/all");
       if (!response.ok) throw new Error("Failed to fetch admin cabs");
       const cabData = await response.json();
       setAdminCabs(cabData);
@@ -641,7 +641,7 @@ export default function BookingDetailPage() {
     try {
       setAssigningAdminDriver(driverId);
       const response = await fetch(
-        ` http://localhost:8085/${booking.id}/assignDriveAdmin/${driverId}`,
+        ` https://api.worldtriplink.com/${booking.id}/assignDriveAdmin/${driverId}`,
         {
           method: 'PUT',
           headers: {
@@ -683,7 +683,7 @@ export default function BookingDetailPage() {
     try {
       setAssigningAdminCab(cabId);
       const response = await fetch(
-        ` http://localhost:8085/${booking.id}/assignCabAdmin/${cabId}`,
+        ` https://api.worldtriplink.com/${booking.id}/assignCabAdmin/${cabId}`,
         {
           method: 'PUT',
           headers: {
